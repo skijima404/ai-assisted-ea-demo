@@ -1,13 +1,13 @@
 ---
 id: principle-006
-title: セキュリティファースト
+title: Security First
 tags: [principle, project]
 status: approved
 approver: 
 approved_on: 2025-11-06
 ---
 
-# Architecture Principle
+# Security First
 
 ## Statement
 セキュリティを最優先とし、退職者のアカウント無効化など、セキュリティリスクを迅速に解消する。認証・認可を適切に管理し、データ保護を確保する。

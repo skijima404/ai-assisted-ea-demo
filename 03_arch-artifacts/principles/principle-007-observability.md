@@ -1,13 +1,13 @@
 ---
 id: principle-007
-title: 観測可能性
+title: Observatility (観測可能性)
 tags: [principle, project]
 status: approved
 approver: 
 approved_on: 2025-11-06
 ---
 
-# Architecture Principle
+# Observatility (観測可能性)
 
 ## Statement
 システムの状態を一目で把握できるよう、ログ、メトリクス、トレースを統合して監視する。問題が起きた際も迅速に対応できる体制を整える。
