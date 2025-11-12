@@ -6,17 +6,26 @@ Browser[ブラウザ]
 subgraph Canteen["社食システム"]
   App[社食App]
   DB[(社食DB)]
-  PayApp[決済履歴App]:::new
-  PayDB[(決済履歴DB)]:::new
-  Mirror[ミラーリング]:::new
+  PayApp[決済履歴App]
+  PayDB[(決済履歴DB)]
+  CamelAPI[CamelAPI/Read Only]
+  CanteenUI[社食UI]
   Ingest[(決済端末/外部からの投入点)]:::ing
 end
 
+subgraph APIGW["API Gateway"]
+  GW[API Gateway]
+end
+
 subgraph HR["人事システム"]
-  HRApp[HR App]
-  HRDB[(人事DB)]
-  TranApp[利用明細App]
+  DedUI[天引き情報UI]
+  BillAPI[請求台帳API]:::new
+  TranApp[利用明細API]
   TranDB[(利用明細DB)]
+  PrivateAPI[個人情報API]:::new
+  PriavteDB[(個人情報DB)]:::new
+  PublicAPI[社内公開プロファイルAPI]:::new
+  PublicDB[(社内公開プロファイルDB)]:::new
 end
 
 subgraph Store["社内コンビニシステム (External)"]
@@ -34,27 +43,37 @@ POS -- 月次CSV: 決済データ（給与天引き予定） --> Connector
 %% HRApp -- 日次CSV: 社員マスタ（ID同期） --> App
 
 Connector --> Kafka
-Kafka -- POSデータ --> HRApp
-PayApp -- 決済データ --> Kafka
-Kafka -- 決済データ --> TranApp
-HRApp -- ユーザーデータ--> Kafka
+Kafka -- POSデータ/決済データ --> TranApp
+Kafka -- POSデータ/決済データ --> BillAPI
 Kafka -- ユーザーデータ --> App
 
 %% ユーザーアクセス
 User --> Browser
-Browser --> App
+Browser -- Token --> CanteenUI
+CanteenUI -- Token --> GW
+GW --> CamelAPI
+GW --> PayApp
+
+Browser -- Token --> DedUI
+DedUI -- Token --> GW
+GW --> TranApp
+GW --> BillAPI
+GW --> PublicAPI
+GW --> PrivateAPI
 
 %% システム連携
-Ingest --> Mirror
-Mirror --> PayApp
-Mirror --> App
+Ingest --> PayApp
 
 %% App --> DB
 App --> DB
+CamelAPI --> DB
 HRApp --> HRDB
 TranApp --> TranDB
 PayApp --> PayDB
+PublicAPI --> PublicDB
+PrivateAPI --> PriavteDB
 
 %% ===== Styles =====
 classDef ing fill:#eef7ff,stroke:#1b6dd1,rx:6,ry:6;
 classDef new fill:#f5ccba,stroke:#f59271;
+

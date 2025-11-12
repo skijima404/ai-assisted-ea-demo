@@ -6,15 +6,22 @@ Browser[ブラウザ]
 subgraph Canteen["社食システム"]
   App[社食App]
   DB[(社食DB)]
-  PayApp[決済履歴App]:::new
-  PayDB[(決済履歴DB)]:::new
-  Mirror[ミラーリング]:::new
+  PayApp[決済履歴App]
+  PayDB[(決済履歴DB)]
+  Mirror[ミラーリング]
+  CamelAPI[CamelAPI/Read Only]:::new
+  CanteenUI[社食UI]:::new
   Ingest[(決済端末/外部からの投入点)]:::ing
+end
+
+subgraph APIGW["API Gateway"]
+  GW[API Gateway]:::new
 end
 
 subgraph HR["人事システム"]
   HRApp[HR App]
   HRDB[(人事DB)]
+  DedUI[天引き情報UI]:::new
   TranApp[利用明細App]
   TranDB[(利用明細DB)]
 end
@@ -35,14 +42,21 @@ POS -- 月次CSV: 決済データ（給与天引き予定） --> Connector
 
 Connector --> Kafka
 Kafka -- POSデータ --> HRApp
-PayApp -- 決済データ --> Kafka
+Mirror -- 決済データ --> Kafka
 Kafka -- 決済データ --> TranApp
 HRApp -- ユーザーデータ--> Kafka
 Kafka -- ユーザーデータ --> App
 
 %% ユーザーアクセス
 User --> Browser
-Browser --> App
+Browser -- Token --> CanteenUI
+CanteenUI -- Token --> GW
+GW --> CamelAPI
+GW --> PayApp
+
+Browser -- Token --> DedUI
+DedUI -- Token --> GW
+GW --> TranApp
 
 %% システム連携
 Ingest --> Mirror
@@ -51,6 +65,7 @@ Mirror --> App
 
 %% App --> DB
 App --> DB
+CamelAPI --> DB
 HRApp --> HRDB
 TranApp --> TranDB
 PayApp --> PayDB
@@ -58,3 +73,4 @@ PayApp --> PayDB
 %% ===== Styles =====
 classDef ing fill:#eef7ff,stroke:#1b6dd1,rx:6,ry:6;
 classDef new fill:#f5ccba,stroke:#f59271;
+

@@ -37,6 +37,10 @@ Browser --> App
 %% システム連携
 Ingest --> App
 
+%% App --> DB
+App --> DB
+HRApp --> HRDB
+
 %% ===== Styles =====
 classDef ing fill:#eef7ff,stroke:#1b6dd1,rx:6,ry:6;
 ```
