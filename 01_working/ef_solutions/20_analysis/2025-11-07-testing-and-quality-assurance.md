@@ -46,3 +46,4 @@ tags: [ADR, testing, quality]
 - ADR-0007 (Observability)
 - ADR-0009 (Lifecycle-Aware Architecture)
 - ADR-0010 (Manage Technical Debt as a Portfolio)
+

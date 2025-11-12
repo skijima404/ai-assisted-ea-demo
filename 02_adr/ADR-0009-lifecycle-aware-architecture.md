@@ -75,3 +75,4 @@ Accepted
 - Analysis: `01_working/bd_arch-design/20_analysis/2025-11-05-eosl-technical-debt.md`
 - Principle: `03_arch-artifacts/principles/principle-009-lifecycle-aware-architecture.md`
 
+

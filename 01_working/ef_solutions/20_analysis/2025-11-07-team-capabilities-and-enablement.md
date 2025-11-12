@@ -120,3 +120,4 @@ confidence: ★★★☆☆
   - TOGAF-Gの入り口でArchitectural RunwayとアジャイルプロセスとADの関係を整理
 - **関連成果物**: Implementation Governance (Phase G)
 
+

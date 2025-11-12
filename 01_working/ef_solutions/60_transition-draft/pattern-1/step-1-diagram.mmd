@@ -1,0 +1,55 @@
+flowchart TB
+%% ===== Nodes =====
+User[社員 <ユーザー>]
+Browser[ブラウザ]
+
+subgraph Canteen["社食システム"]
+  App[社食App]
+  DB[(社食DB)]
+  Ingest[(決済端末/外部からの投入点)]:::ing
+end
+
+subgraph HR["人事システム"]
+  HRApp[HR App]
+  HRDB[(人事DB)]
+  TranApp[利用明細App]:::new
+  TranDB[(利用明細DB)]:::new
+end
+
+subgraph Store["社内コンビニシステム (External)"]
+  POS[コンビニシステム]
+end
+
+Kafka[Kafka]
+
+Connector[CSV-->Kafka]:::new
+
+%% 既存のCSV連携（維持）
+POS -- 月次CSV: 決済データ（給与天引き予定） --> Connector
+%% POS -- 日次CSV: レシート明細（表示用） --> App
+%% App -- 月次CSV: 決済データ（給与天引き予定） --> HRApp
+%% HRApp -- 日次CSV: 社員マスタ（ID同期） --> App
+
+Connector --> Kafka
+Kafka -- POSデータ --> HRApp
+App -- 決済データ --> Kafka
+Kafka -- 決済データ --> TranApp
+HRApp -- ユーザーデータ--> Kafka
+Kafka -- ユーザーデータ --> App
+
+%% ユーザーアクセス
+User --> Browser
+Browser --> App
+
+%% システム連携
+Ingest --> App
+
+%% App --> DB
+App --> DB
+HRApp --> HRDB
+TranApp --> TranDB
+
+%% ===== Styles =====
+classDef ing fill:#eef7ff,stroke:#1b6dd1,rx:6,ry:6;
+classDef new fill:#f5ccba,stroke:#f59271;
+

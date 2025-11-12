@@ -1,0 +1,81 @@
+flowchart TB
+%% ===== Nodes =====
+User[社員 <ユーザー>]
+Browser[ブラウザ]
+
+subgraph Canteen["社食システム"]
+  PayApp[決済履歴App]
+  PayDB[(決済履歴DB)]
+  CanteenUI[社食UI]
+  MenuAPI[メニューAPI]:::new
+  MenuDB[(メニューDB)]:::new
+  UserAPI[ユーザープロファイルAPI]:::new
+  UserDB[(ユーザープロファイルDB)]:::new
+  Ingest[(決済端末/外部からの投入点)]:::ing
+end
+
+subgraph APIGW["API Gateway"]
+  GW[API Gateway]
+end
+
+subgraph HR["人事システム"]
+  DedUI[天引き情報UI]
+  BillAPI[請求台帳API]
+  TranApp[利用明細API]
+  TranDB[(利用明細DB)]
+  PrivateAPI[個人情報API]
+  PriavteDB[(個人情報DB)]
+  PublicAPI[社内公開プロファイルAPI]
+  PublicDB[(社内公開プロファイルDB)]
+end
+
+subgraph Store["社内コンビニシステム (External)"]
+  POS[コンビニシステム]
+end
+
+Kafka[Kafka]
+
+Connector[CSV-->Kafka]
+
+%% 既存のCSV連携（維持）
+POS -- 月次CSV: 決済データ（給与天引き予定） --> Connector
+
+Connector --> Kafka
+Kafka -- POSデータ/決済データ --> TranApp
+Kafka -- PPOSデータ/決済データ --> BillAPI
+PublicAPI -- ユーザーデータ--> Kafka
+Kafka -- ユーザーデータ --> UserAPI
+
+%% ユーザーアクセス
+User --> Browser
+Browser -- Token --> CanteenUI
+CanteenUI -- Token --> GW
+GW --> CamelAPI
+GW --> PayApp
+GW --> MenuAPI
+GW --> UserAPI
+
+Browser -- Token --> DedUI
+DedUI -- Token --> GW
+GW --> TranApp
+GW --> BillAPI
+GW --> PublicAPI
+GW --> PrivateAPI
+
+%% システム連携
+Ingest --> PayApp
+
+%% App --> DB
+CamelAPI --> DB
+HRApp --> HRDB
+TranApp --> TranDB
+PayApp --> PayDB
+PublicAPI --> PublicDB
+PrivateAPI --> PriavteDB
+MenuAPI --> MenuDB
+UserAPI --> UserDB
+
+%% ===== Styles =====
+classDef ing fill:#eef7ff,stroke:#1b6dd1,rx:6,ry:6;
+classDef new fill:#f5ccba,stroke:#f59271;
+
