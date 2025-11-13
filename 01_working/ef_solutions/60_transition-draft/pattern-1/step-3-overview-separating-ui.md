@@ -44,3 +44,6 @@
 - 認証まわりのトラブル対応として、OIDC切替を段階的に実施し、既存セッション有効期間中はフォールバック認証を許可。
 
 ## Reference
+- principle-001: Single Source of Truth  
+- principle-002: リアルタイムデータ処理  
+- principle-003: イベント駆動アーキテクチャ  
