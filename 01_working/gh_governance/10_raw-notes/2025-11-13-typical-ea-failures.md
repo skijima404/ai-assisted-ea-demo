@@ -44,7 +44,7 @@ EAガバナンスの失敗あるあるパターン
   - プロトタイプがそもそも色々な非機能要件を考慮していない
 
 ## 疑問 (Question)
-  <!-- Note any questions that arise -->
+- 特になし
 
 ## 次アクション (Next Step)
-  <!-- Outline next steps or actions to take -->
+- 特になし
