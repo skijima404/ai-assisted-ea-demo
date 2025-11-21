@@ -44,6 +44,6 @@ Accepted
 
 ## Reference
 - Architecture Vision: `03_arch-artifacts/arch-vision.md`
-- Analysis: `01_working/bd_arch-design/20_analysis/2025-11-06-system-load-patterns.md`
+- Analysis: `01_working/bd_arch-design/20_analysis/an-006-no-design-for-peak-hour-load.md`
 - Principle: `03_arch-artifacts/principles/principle-005-autoscaling.md`
 

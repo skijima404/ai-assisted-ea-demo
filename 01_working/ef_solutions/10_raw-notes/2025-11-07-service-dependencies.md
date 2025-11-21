@@ -30,13 +30,10 @@ tags: [raw]
       - 内部の利用明細、請求台帳 (現在はプロシージャ)
         - Target Architectureではこの2つは人事システム側に移動、イベント連携の予定
 - 利用明細 (transactions)
-  - 難易度中
-    - 決済履歴 (payments) との間の検算
-      - ここは社食システムのみの明細
-    - Target Architectureでは利用履歴との間の検算
-      - 社食システムとコンビニシステムの決済履歴の合算
-    - ロジックもだいぶ変わる
-      - ロジックそのものはおそらくそれほど複雑ではない
+  - 概要のみ記載。Baselineでは厳密な transactions テーブルは存在しない。
+  - コンビニ側の `convini_receipt_items` と、社食側の `receipts` / `receipt_items` が非対称なため、結合は弱い（詳細は deep-dive を参照）。
+  - Target Architecture では、社食＋コンビニ両方の明細を統合する役割となり、移行時の検算ロジックが大きく変更される。
+  - ※詳細分析 → `2025-11-07-transactions-deep-dive.md`
 - 請求台帳 (bills)
   - 現在はインプットがCSVに限定されているので、切り出すことはそれほど難しくない
   - Target Architectureでは利用明細との依存度高め

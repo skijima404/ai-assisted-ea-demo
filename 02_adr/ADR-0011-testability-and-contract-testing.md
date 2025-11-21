@@ -136,9 +136,9 @@ Accepted
 ## Reference
 - Architecture Vision: `03_arch-artifacts/arch-vision.md`
 - Analysis: 
-  - `01_working/ef_solutions/20_analysis/2025-11-07-testing-and-quality-assurance.md`
-  - `01_working/ef_solutions/20_analysis/2025-11-07-service-decomposition-and-dependencies.md`
-  - `01_working/ef_solutions/20_analysis/2025-11-07-ui-api-separation-strategy.md`
+  - `01_working/ef_solutions/20_analysis/an-204-regression-test-quality-is-insufficient-for-migration-safety.md`
+  - `01_working/ef_solutions/20_analysis/an-209-transactions-migration-is-a-key-bottleneck.md`
+  - `01_working/ef_solutions/20_analysis/an-203-legacy-ui-and-bl-coupling-increases-migration-risk.md`
 - Principle: `03_arch-artifacts/principles/principle-011-testability-and-contract-testing.md`
 - External Reference: STAR by Mike Amundsen (https://mamund.site44.com/talks/2021-05-orm-migration/2021-05-orm-migration.pdf)
 
