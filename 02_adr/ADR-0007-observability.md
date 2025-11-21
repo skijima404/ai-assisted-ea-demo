@@ -68,7 +68,7 @@ Accepted
 
 ## Reference
 - Architecture Vision: `03_arch-artifacts/arch-vision.md`
-- Analysis: `01_working/bd_arch-design/20_analysis/2025-11-06-system-integration-issues.md`
+- Analysis: `01_working/bd_arch-design/20_analysis/an-007-batch-file-integration-limits-architecture.md`
 - Principle: `03_arch-artifacts/principles/principle-007-observability.md`
 
 

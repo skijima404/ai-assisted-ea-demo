@@ -72,9 +72,9 @@ Accepted
 
 ## Reference
 - Architecture Vision: `03_arch-artifacts/arch-vision.md`
-- Analysis: `01_working/bd_arch-design/20_analysis/2025-11-05-eosl-technical-debt.md`
-- Analysis: `01_working/bd_arch-design/20_analysis/2025-11-06-amount-inconsistency-root-cause.md`
-- Analysis: `01_working/bd_arch-design/20_analysis/2025-11-06-system-integration-issues.md`
+- Analysis: `01_working/bd_arch-design/20_analysis/an-001-upgrade-path-is-blocked-by-mw-compatibility.md`
+- Analysis: `01_working/bd_arch-design/20_analysis/an-002-amount-calculation-responsibility-broken.md`
+- Analysis: `01_working/bd_arch-design/20_analysis/an-007-batch-file-integration-limits-architecture.md`
 - Principle: `03_arch-artifacts/principles/principle-010-manage-technical-debt.md`
 
 
